@@ -2,6 +2,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gdsc_lnct/app_screens/privacy_policy.dart';
 import 'package:gdsc_lnct/constants.dart';
 import 'package:gdsc_lnct/models/toast.dart';
 import 'package:gdsc_lnct/models/urls.dart';
@@ -321,7 +322,22 @@ class AboutUs extends StatelessWidget {
                     text: 'Podcasts',
                   ),
                   SizedBox(
-                    height: 100.h,
+                    height: 50.h,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => PP()));
+                        },
+                        child: Text(
+                          'Privacy Policy',
+                          style: TextStyle(
+                            fontSize: 45.sp,
+                            color: Colors.grey.shade700,
+                          ),
+                        )),
                   ),
                 ],
               ),

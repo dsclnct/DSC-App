@@ -33,8 +33,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           builder: (context, child) => MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 0.9),
-              child: child ?? Container()),
+              data: MediaQuery.of(context), child: child ?? Container()),
           title: 'GDSC-LNCT',
           home: (showIntro == true || showIntro == null)
               ? IntroPage()

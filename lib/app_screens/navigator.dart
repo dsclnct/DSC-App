@@ -75,7 +75,7 @@ class _HomePageNavigationState extends State<HomePageNavigation> {
       appBar: null,
       bottomNavigationBar: ConvexAppBar(
         color: Colors.black,
-        activeColor: Colors.grey.shade100,
+        //activeColor: Colors.grey.shade100,
         backgroundColor: Colors.white,
         items: [
           TabItem(

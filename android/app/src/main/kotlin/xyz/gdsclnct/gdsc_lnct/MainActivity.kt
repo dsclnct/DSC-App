@@ -1,4 +1,4 @@
-package com.example.gdsc_lnct
+package xyz.gdsclnct.gdsc_lnct
 
 import io.flutter.embedding.android.FlutterActivity
 

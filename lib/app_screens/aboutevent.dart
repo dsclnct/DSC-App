@@ -34,6 +34,8 @@ class _AboutEventState extends State<AboutEvent> {
   late String? venue;
   late String? watchLink;
   late String? rsvpLink;
+
+  bool changeFit = false;
   @override
   void initState() {
     super.initState();
@@ -121,7 +123,9 @@ class _AboutEventState extends State<AboutEvent> {
                 child: Text(
                   (widget.event == EventType.upcoming)
                       ? '   RSVP Now   '
-                      : '   Details   ',
+                      : (watchLink != null)
+                          ? '   Watch   '
+                          : '   Details   ',
                   style: GoogleFonts.poppins(
                       fontSize: 45.sp,
                       color: Colors.white,
@@ -129,65 +133,70 @@ class _AboutEventState extends State<AboutEvent> {
                 ),
               ))
           : null,
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   backgroundColor: Colors.black.withOpacity(0.1),
-      //   leading: BackButton(
-      //     color: Colors.white,
-      //   ),
-      //   title: Text(
-      //     'About Event',
-      //     style: TextStyle(color: Colors.white),
-      //   ),
-      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CachedNetworkImage(
-                  imageUrl: image ??
-                      'https://media.istockphoto.com/vectors/error-page-dead-emoji-illustration-vector-id1095047472?k=20&m=1095047472&s=612x612&w=0&h=1lDW_CWDLYwOUO7tAsLHnXTSwuvcWqWq4rysM1y6-E8=',
-                  imageBuilder: (context, imageProvider) => Container(
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
-                        color: Colors.white.withOpacity(0.3),
-                        child: BackButton(
-                          color: Colors.black,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      changeFit = !changeFit;
+                    });
+                  },
+                  child: CachedNetworkImage(
+                    imageUrl: image ??
+                        'https://media.istockphoto.com/vectors/error-page-dead-emoji-illustration-vector-id1095047472?k=20&m=1095047472&s=612x612&w=0&h=1lDW_CWDLYwOUO7tAsLHnXTSwuvcWqWq4rysM1y6-E8=',
+                    imageBuilder: (context, imageProvider) => Container(
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            color: Colors.white.withOpacity(0.18),
+                            padding: EdgeInsets.all(8),
+                            margin: EdgeInsets.all(8),
+                            child: Icon(
+                              Icons.arrow_back_sharp,
+                              color: Colors.black,
+                            ),
+                          ),
                         ),
                       ),
+                      height: 900.h,
+                      decoration: BoxDecoration(
+                          border: Border(
+                            bottom:
+                                BorderSide(color: Colors.blueAccent, width: 2),
+                          ),
+                          image: DecorationImage(
+                              fit: (changeFit) ? BoxFit.contain : BoxFit.cover,
+                              image: imageProvider)),
                     ),
-                    height: 900.h,
-                    decoration: BoxDecoration(
-                        border: Border(
-                          bottom:
-                              BorderSide(color: Colors.blueAccent, width: 2),
-                        ),
-                        image: DecorationImage(
-                            fit: BoxFit.cover, image: imageProvider)),
+                    placeholder: (context, url) => Container(
+                      height: 600.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: BlurHash(
+                        imageFit: BoxFit.cover,
+                        duration: Duration(seconds: 10),
+                        curve: Curves.bounceInOut,
+                        hash: 'LHA-Vc_4s9ad4oMwt8t7RhXTNGRj',
+                        image: url,
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => Center(
+                        child: Container(
+                            height: 300.sp,
+                            child: Icon(
+                              Icons.error,
+                              color: Colors.red[900],
+                            ))),
                   ),
-                  placeholder: (context, url) => Container(
-                    height: 600.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: BlurHash(
-                      imageFit: BoxFit.cover,
-                      duration: Duration(seconds: 10),
-                      curve: Curves.bounceInOut,
-                      hash: 'LHA-Vc_4s9ad4oMwt8t7RhXTNGRj',
-                      image: url,
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => Center(
-                      child: Container(
-                          height: 300.sp,
-                          child: Icon(
-                            Icons.error,
-                            color: Colors.red[900],
-                          ))),
                 ),
                 SizedBox(
                   height: 20.h,
@@ -206,7 +215,7 @@ class _AboutEventState extends State<AboutEvent> {
                       ),
                       if (subHeading != null)
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20.h),
+                          padding: EdgeInsets.symmetric(vertical: 50.h),
                           child: Text(
                             '❁  $subHeading',
                             style: GoogleFonts.poppins(
@@ -216,32 +225,51 @@ class _AboutEventState extends State<AboutEvent> {
                           ),
                         ),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.h),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                        padding: (subHeading != null)
+                            ? EdgeInsets.only(bottom: 50.h)
+                            : EdgeInsets.symmetric(vertical: 50.h),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(
-                              FontAwesomeIcons.clock,
-                              color: Colors.blueAccent,
-                              size: 55.sp,
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  FontAwesomeIcons.clock,
+                                  color: Colors.blueAccent,
+                                  size: 55.sp,
+                                ),
+                                SizedBox(
+                                  width: 30.w,
+                                ),
+                                Text(
+                                  '$date @ $time',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 55.sp,
+                                    color: Colors.blueAccent,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                              width: 30.w,
-                            ),
-                            Text(
-                              '$date @ $time',
-                              style: GoogleFonts.poppins(
-                                fontSize: 55.sp,
-                                color: Colors.blueAccent,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                            if (venue != null)
+                              Padding(
+                                padding: EdgeInsets.only(top: 30.h),
+                                child: Text(
+                                  'Venue : $venue',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 55.sp,
+                                    color: Colors.blueAccent,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              )
                           ],
                         ),
                       ),
                       if (discription != null)
                         Padding(
-                          padding: EdgeInsets.only(top: 40.h, bottom: 20.h),
+                          padding: EdgeInsets.only(top: 10.h, bottom: 20.h),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -267,7 +295,7 @@ class _AboutEventState extends State<AboutEvent> {
                         ),
                       if (tags != null && tags!.length != 0)
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20.h),
+                          padding: EdgeInsets.only(top: 50.h, bottom: 100.h),
                           child: Wrap(
                             spacing: 20.w,
                             runSpacing: 30.h,

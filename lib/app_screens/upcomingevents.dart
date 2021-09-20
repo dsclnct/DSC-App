@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +75,9 @@ class ListEvents extends StatelessWidget {
                           imageBuilder: (context, imageProvider) => Container(
                             height: 500.sp,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)),
                                 image: DecorationImage(
                                     fit: BoxFit.cover,
                                     colorFilter: (event == EventType.past)
@@ -127,10 +130,12 @@ class ListEvents extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
-                                    child: Text(
-                                      '$date  @ $time',
+                                    child: AutoSizeText(
+                                      '$date  | $time',
+                                      maxLines: 1,
+                                      minFontSize: 42.sp,
                                       style: GoogleFonts.poppins(
-                                        fontSize: 48.sp,
+                                        fontSize: 49.sp,
                                         fontWeight: FontWeight.w500,
                                         color: (event == EventType.upcoming)
                                             ? Colors.blueAccent
@@ -160,7 +165,7 @@ class ListEvents extends StatelessWidget {
                                         (event == EventType.upcoming)
                                             ? '   RSVP Now   '
                                             : (watchLink != null)
-                                                ? '   Watch Now   '
+                                                ? '   Watch   '
                                                 : '   Details   ',
                                         style: GoogleFonts.poppins(
                                             fontSize: 45.sp,
