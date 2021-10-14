@@ -6,11 +6,13 @@ class DataProvider extends ChangeNotifier {
   final _firestore = FirebaseFirestore.instance;
   List<dynamic> upcomingEvents = [];
   List<dynamic> pastEvents = [];
+  List<dynamic> bannerInfo = [];
   bool error = false;
 
   Future<void> loadEvents() async {
     try {
       error = false;
+      final banner = await _firestore.collection('banner').get();
       final events = await _firestore.collection('events').get();
       for (var event in events.docs) {
         if ((event.data()['isEventOver']) == true &&
@@ -24,6 +26,10 @@ class DataProvider extends ChangeNotifier {
             (event.data()['time']) != null) {
           upcomingEvents.add(event.data());
         }
+      }
+
+      for (var b in banner.docs) {
+        bannerInfo.add(b.data());
       }
     } catch (e) {
       print(e);

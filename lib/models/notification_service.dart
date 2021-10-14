@@ -1,5 +1,4 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class LocalNotificationService {
@@ -21,8 +20,8 @@ class LocalNotificationService {
       final NotificationDetails notificationDetails = NotificationDetails(
           android: AndroidNotificationDetails(
         "gdsclnct",
-        "gdsclnct channel",
-        "this is our channel",
+        "gdsclnct",
+        "gdsclnct",
         importance: Importance.max,
         priority: Priority.high,
       ));

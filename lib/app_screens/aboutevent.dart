@@ -34,6 +34,7 @@ class _AboutEventState extends State<AboutEvent> {
   late String? venue;
   late String? watchLink;
   late String? rsvpLink;
+  late DateTime d;
 
   bool changeFit = false;
   @override
@@ -170,7 +171,7 @@ class _AboutEventState extends State<AboutEvent> {
                       decoration: BoxDecoration(
                           border: Border(
                             bottom:
-                                BorderSide(color: Colors.blueAccent, width: 2),
+                                BorderSide(color: Colors.blueAccent, width: 4),
                           ),
                           image: DecorationImage(
                               fit: (changeFit) ? BoxFit.contain : BoxFit.cover,
@@ -215,11 +216,11 @@ class _AboutEventState extends State<AboutEvent> {
                       ),
                       if (subHeading != null)
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 50.h),
+                          padding: EdgeInsets.only(top: 30.h, bottom: 70.h),
                           child: Text(
                             '❁  $subHeading',
                             style: GoogleFonts.poppins(
-                              fontSize: 50.sp,
+                              fontSize: 47.sp,
                               color: Colors.grey.shade800,
                             ),
                           ),
@@ -232,38 +233,79 @@ class _AboutEventState extends State<AboutEvent> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
-                                  FontAwesomeIcons.clock,
-                                  color: Colors.blueAccent,
-                                  size: 55.sp,
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      FontAwesomeIcons.solidCalendar,
+                                      color: Color(0xff58BBFF),
+                                      size: 55.sp,
+                                    ),
+                                    SizedBox(
+                                      width: 30.w,
+                                    ),
+                                    Text(
+                                      '$date',
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 50.sp,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(
-                                  width: 30.w,
+                                  width: 120.w,
                                 ),
-                                Text(
-                                  '$date @ $time',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 55.sp,
-                                    color: Colors.blueAccent,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      FontAwesomeIcons.solidClock,
+                                      color: Colors.green,
+                                      size: 55.sp,
+                                    ),
+                                    SizedBox(
+                                      width: 30.w,
+                                    ),
+                                    Text(
+                                      '$time',
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 50.sp,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
                             if (venue != null)
                               Padding(
-                                padding: EdgeInsets.only(top: 30.h),
-                                child: Text(
-                                  'Venue : $venue',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 55.sp,
-                                    color: Colors.blueAccent,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                                padding: EdgeInsets.only(top: 60.h),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      FontAwesomeIcons.mapPin,
+                                      color: Colors.yellow.shade800,
+                                      size: 55.sp,
+                                    ),
+                                    SizedBox(
+                                      width: 30.w,
+                                    ),
+                                    Text(
+                                      '$venue',
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 50.sp,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              )
+                              ),
                           ],
                         ),
                       ),
@@ -274,7 +316,7 @@ class _AboutEventState extends State<AboutEvent> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'About this event',
+                                'About',
                                 style: GoogleFonts.poppins(
                                     fontSize: 55.sp,
                                     color: Colors.black87,

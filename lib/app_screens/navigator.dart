@@ -1,17 +1,25 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:gdsc_lnct/app_screens/about.dart';
+import 'package:gdsc_lnct/app_screens/pastEvents.dart';
 import 'package:gdsc_lnct/app_screens/team.dart';
 import 'package:gdsc_lnct/models/dataprovider.dart';
 import 'package:gdsc_lnct/models/notification_service.dart';
+import 'package:gdsc_lnct/models/toast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../constants.dart';
 import 'upcomingevents.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePageNavigation extends StatefulWidget {
   @override
@@ -162,6 +170,7 @@ class _EventsState extends State<Events> {
     var data = Provider.of<DataProvider>(context, listen: false);
     data.upcomingEvents.clear();
     data.pastEvents.clear();
+    data.bannerInfo.clear();
     await data.loadEvents();
     _refreshController.refreshCompleted();
   }
@@ -175,7 +184,6 @@ class _EventsState extends State<Events> {
           )
         : SmartRefresher(
             enablePullDown: true,
-            //enablePullUp: true,
             controller: _refreshController,
             onRefresh: _onRefresh,
             header: ClassicHeader(),
@@ -188,25 +196,37 @@ class _EventsState extends State<Events> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 20.h),
-                          Tab(
-                            child: CircleAvatar(
-                                backgroundColor: Colors.transparent,
-                                child: Image.asset(
-                                  'images/gdsclogo.png',
-                                )),
-                          ),
-                          Text(
-                            'Developer Student Club',
-                            style: GoogleFonts.poppins(
-                                fontSize: 80.sp,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.w600),
+                          SizedBox(height: 5.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: 20.w),
+                                  child: AutoSizeText(
+                                    'Developer Student Club',
+                                    maxLines: 1,
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 70.sp,
+                                        color: Colors.black87,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                              ),
+                              Tab(
+                                child: CircleAvatar(
+                                    radius: 55.sp,
+                                    backgroundColor: Colors.transparent,
+                                    child: Image.asset(
+                                      'images/gdsclogo.png',
+                                    )),
+                              ),
+                            ],
                           ),
                           Text(
                             'Lakshmi Narain College of Technology',
                             style: GoogleFonts.poppins(
-                                fontSize: 50.sp,
+                                fontSize: 45.sp,
                                 color: Colors.grey.shade700,
                                 fontWeight: FontWeight.w500),
                           ),
@@ -219,26 +239,16 @@ class _EventsState extends State<Events> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      if (data.bannerInfo.length > 0) Banner(),
                       Container(
                         margin: EdgeInsets.only(
-                            top: 50.h, bottom: 40.h, left: 50.w),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Upcoming Events',
-                              style: GoogleFonts.poppins(
-                                  fontSize: 57.sp,
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            Expanded(
-                              child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 20.w),
-                                height: 1,
-                                color: Colors.grey.shade400,
-                              ),
-                            )
-                          ],
+                            top: 50.h, bottom: 20.h, left: 50.w),
+                        child: Text(
+                          'Upcoming Events',
+                          style: GoogleFonts.poppins(
+                              fontSize: 57.sp,
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w600),
                         ),
                       ),
                       (data.upcomingEvents.length > 0)
@@ -272,8 +282,9 @@ class _EventsState extends State<Events> {
                       if (data.pastEvents.length > 0)
                         Container(
                           margin: EdgeInsets.only(
-                              top: 50.h, bottom: 40.h, left: 50.w),
+                              top: 50.h, left: 50.w, right: 50.w),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 'Past Events',
@@ -282,14 +293,14 @@ class _EventsState extends State<Events> {
                                     color: Colors.black87,
                                     fontWeight: FontWeight.w600),
                               ),
-                              Expanded(
-                                child: Container(
-                                  margin:
-                                      EdgeInsets.symmetric(horizontal: 20.w),
-                                  height: 1,
-                                  color: Colors.grey.shade400,
-                                ),
-                              )
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => PastEvent()));
+                                  },
+                                  child: Text('View All'))
                             ],
                           ),
                         ),
@@ -307,4 +318,87 @@ class _EventsState extends State<Events> {
             ),
           );
   }
+}
+
+class Banner extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var data = Provider.of<DataProvider>(context);
+    return Padding(
+      padding: EdgeInsets.only(top: 20.h),
+      child: CarouselSlider(
+          options: CarouselOptions(
+            aspectRatio: 2.0,
+            enlargeCenterPage: false,
+            height: 350.h,
+            viewportFraction: 0.87,
+            scrollDirection: Axis.horizontal,
+            enableInfiniteScroll: (data.bannerInfo.length == 1) ? false : true,
+            autoPlay: true,
+          ),
+          items: bannerItems(data)),
+    );
+  }
+}
+
+List<Widget> bannerItems(DataProvider data) {
+  List<Widget> items = [];
+  for (int i = 0; i < data.bannerInfo.length; i++) {
+    if (data.bannerInfo[i]['title'] == null) {
+      items.add(GestureDetector(
+        onTap: () async {
+          if (data.bannerInfo[i]['link'] != null) {
+            String url = data.bannerInfo[i]['link'];
+            await canLaunch(url)
+                ? await launch(url)
+                : showToast(message: "Couldn't Launch Link");
+          }
+        },
+        child: Card(
+          elevation: 3,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: Container(
+            width: double.infinity,
+            child: CachedNetworkImage(
+              imageUrl: data.bannerInfo[i]['backgroundImage'] ??
+                  'https://media.istockphoto.com/vectors/error-page-dead-emoji-illustration-vector-id1095047472?k=20&m=1095047472&s=612x612&w=0&h=1lDW_CWDLYwOUO7tAsLHnXTSwuvcWqWq4rysM1y6-E8=',
+              imageBuilder: (context, imageProvider) => Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                        fit: BoxFit.cover, image: imageProvider)),
+              ),
+              placeholder: (context, url) => Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: BlurHash(
+                  imageFit: BoxFit.cover,
+                  duration: Duration(seconds: 10),
+                  curve: Curves.linear,
+                  hash: 'LHA-Vc_4s9ad4oMwt8t7RhXTNGRj',
+                  image: url,
+                ),
+              ),
+              errorWidget: (context, url, error) => Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error,
+                      color: Colors.red.shade800,
+                    ),
+                    Text('Something went wrong!')
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+    }
+  }
+
+  return items;
 }
