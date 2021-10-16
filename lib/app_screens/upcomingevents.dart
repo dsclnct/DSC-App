@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:gdsc_lnct/app_screens/aboutevent.dart';
 import 'package:gdsc_lnct/models/dataprovider.dart';
+import 'package:gdsc_lnct/models/themeprovider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,6 +52,7 @@ class ListEvents extends StatelessWidget {
               ? data.upcomingEvents[index]['image']
               : data.pastEvents[index]['image'];
           return Material(
+            color: Theme.of(context).hintColor,
             child: InkWell(
               splashColor: Colors.blue,
               onTap: () {
@@ -65,7 +67,7 @@ class ListEvents extends StatelessWidget {
                   ? Card(
                       margin: EdgeInsets.symmetric(
                           horizontal: 40.w, vertical: 40.h),
-                      elevation: 3,
+                      elevation: 5,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       child: Container(
@@ -119,7 +121,7 @@ class ListEvents extends StatelessWidget {
                                     heading,
                                     style: GoogleFonts.poppins(
                                         fontSize: 55.sp,
-                                        color: Colors.black87,
+                                        color: Theme.of(context).primaryColor,
                                         fontWeight: FontWeight.w500),
                                   ),
                                   Row(
@@ -130,9 +132,9 @@ class ListEvents extends StatelessWidget {
                                         child: AutoSizeText(
                                           '$date',
                                           maxLines: 1,
-                                          minFontSize: 42.sp,
+                                          minFontSize: 42.0,
                                           style: GoogleFonts.poppins(
-                                              fontSize: 49.sp,
+                                              fontSize: 49.0,
                                               fontWeight: FontWeight.w500,
                                               color: Colors.blueAccent),
                                         ),
@@ -164,7 +166,8 @@ class ListEvents extends StatelessWidget {
                                                     : '   Details   ',
                                             style: GoogleFonts.poppins(
                                                 fontSize: 45.sp,
-                                                color: Colors.white,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
                                                 fontWeight: FontWeight.w600),
                                           ),
                                         )
@@ -265,7 +268,7 @@ Widget pastEvents(
                         style: GoogleFonts.poppins(
                             fontSize: 50.sp,
                             color: (event == EventType.upcoming)
-                                ? Colors.black87
+                                ? Colors.green
                                 : Colors.grey,
                             fontWeight: FontWeight.w500),
                       ),
@@ -275,14 +278,13 @@ Widget pastEvents(
                       child: AutoSizeText(
                         '$date',
                         maxLines: 1,
-                        minFontSize: 42.sp,
+                        minFontSize: 42.0,
                         style: GoogleFonts.poppins(
-                          fontSize: 49.sp,
-                          fontWeight: FontWeight.w500,
-                          color: (event == EventType.upcoming)
-                              ? Colors.blueAccent
-                              : Colors.grey,
-                        ),
+                            fontSize: 49.0,
+                            fontWeight: FontWeight.w500,
+                            color: (event == EventType.upcoming)
+                                ? Colors.blueAccent
+                                : Colors.red),
                       ),
                     )
                   ],

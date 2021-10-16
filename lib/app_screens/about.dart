@@ -51,7 +51,7 @@ class AboutUs extends StatelessWidget {
                     'About Us',
                     style: GoogleFonts.poppins(
                         fontSize: 85.sp,
-                        color: Colors.black87,
+                        color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.w600),
                   ),
                   Tab(
@@ -76,7 +76,7 @@ class AboutUs extends StatelessWidget {
                   Text(
                     aboutText,
                     style: GoogleFonts.poppins(
-                        fontSize: 50.sp, color: Colors.grey.shade800),
+                        fontSize: 50.sp, color: Theme.of(context).primaryColor),
                   ),
                   SizedBox(
                     height: 50.h,
@@ -105,7 +105,7 @@ class AboutUs extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
-                            color: Colors.blue.shade600,
+                            color: Colors.black,
                           ),
                         ),
                         child: Text(
@@ -113,7 +113,7 @@ class AboutUs extends StatelessWidget {
                           style: GoogleFonts.poppins(
                             fontSize: 45.sp,
                             fontWeight: FontWeight.w500,
-                            color: Colors.blue.shade600,
+                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -127,7 +127,7 @@ class AboutUs extends StatelessWidget {
                     style: GoogleFonts.poppins(
                       fontSize: 50.sp,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black87,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   Padding(
@@ -135,7 +135,8 @@ class AboutUs extends StatelessWidget {
                     child: Text(
                       'Backed by a vast community of driven, passionate learners. Easy access to a huge pool of change-makers & renowned personalities.',
                       style: GoogleFonts.poppins(
-                          fontSize: 45.sp, color: Colors.grey.shade800),
+                          fontSize: 45.sp,
+                          color: Theme.of(context).primaryColor),
                     ),
                   ),
                   Row(
@@ -152,7 +153,7 @@ class AboutUs extends StatelessWidget {
                               child: Container(
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: Colors.blue.shade700),
+                                      color: Colors.blue),
                                   height: 50.sp,
                                   width: 50.sp),
                             ),
@@ -169,7 +170,7 @@ class AboutUs extends StatelessWidget {
                               child: Container(
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: Colors.blue.shade700),
+                                      color: Colors.blue),
                                   height: 50.sp,
                                   width: 50.sp),
                             ),
@@ -232,7 +233,7 @@ class AboutUs extends StatelessWidget {
                     style: GoogleFonts.poppins(
                       fontSize: 50.sp,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black87,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   SizedBox(
@@ -299,7 +300,7 @@ class AboutUs extends StatelessWidget {
                     style: GoogleFonts.poppins(
                       fontSize: 50.sp,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black87,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   SizedBox(
@@ -335,7 +336,7 @@ class AboutUs extends StatelessWidget {
                           'Privacy Policy',
                           style: TextStyle(
                             fontSize: 45.sp,
-                            color: Colors.grey.shade700,
+                            color: Theme.of(context).primaryColor,
                           ),
                         )),
                   ),
@@ -375,7 +376,7 @@ class Events extends StatelessWidget {
             style: GoogleFonts.poppins(
               fontSize: 60.sp,
               fontWeight: FontWeight.w500,
-              color: Colors.black87,
+              color: Theme.of(context).primaryColor,
             ),
           )
         ],
@@ -415,7 +416,7 @@ class Tracks extends StatelessWidget {
                 style: GoogleFonts.poppins(
                   fontSize: 50.sp,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black87,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
             ),

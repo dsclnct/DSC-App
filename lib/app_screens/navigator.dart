@@ -20,6 +20,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../constants.dart';
 import 'upcomingevents.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:gdsc_lnct/models/themeprovider.dart';
 
 class HomePageNavigation extends StatefulWidget {
   @override
@@ -52,7 +53,7 @@ class _HomePageNavigationState extends State<HomePageNavigation> {
             'About Us',
             style: GoogleFonts.poppins(
                 fontSize: 80.sp,
-                color: Colors.black87,
+                color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.w600),
           ),
           Tab(
@@ -178,6 +179,7 @@ class _EventsState extends State<Events> {
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<DataProvider>(context);
+    Themechanger themechanger = Provider.of<Themechanger>(context);
     return (showLoading)
         ? Center(
             child: CircularProgressIndicator(),
@@ -208,7 +210,7 @@ class _EventsState extends State<Events> {
                                     maxLines: 1,
                                     style: GoogleFonts.poppins(
                                         fontSize: 70.sp,
-                                        color: Colors.black87,
+                                        color: Theme.of(context).primaryColor,
                                         fontWeight: FontWeight.w600),
                                   ),
                                 ),
@@ -223,13 +225,29 @@ class _EventsState extends State<Events> {
                               ),
                             ],
                           ),
-                          Text(
-                            'Lakshmi Narain College of Technology',
-                            style: GoogleFonts.poppins(
-                                fontSize: 45.sp,
-                                color: Colors.grey.shade700,
-                                fontWeight: FontWeight.w500),
-                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Lakshmi Narain College of Technology',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 45.sp,
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              SizedBox(width: 100.w),
+                              Icon(themechanger.getDarkMode()
+                                  ? Icons.dark_mode
+                                  : Icons.light_mode),
+                              Switch(
+                                value: themechanger.getDarkMode(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    themechanger.changeDarkMode(value);
+                                  });
+                                },
+                              ),
+                            ],
+                          )
                         ],
                       )),
                   SizedBox(
@@ -247,7 +265,7 @@ class _EventsState extends State<Events> {
                           'Upcoming Events',
                           style: GoogleFonts.poppins(
                               fontSize: 57.sp,
-                              color: Colors.black87,
+                              color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.w600),
                         ),
                       ),
@@ -290,7 +308,7 @@ class _EventsState extends State<Events> {
                                 'Past Events',
                                 style: GoogleFonts.poppins(
                                     fontSize: 57.sp,
-                                    color: Colors.black87,
+                                    color: Theme.of(context).primaryColor,
                                     fontWeight: FontWeight.w600),
                               ),
                               TextButton(
@@ -300,7 +318,11 @@ class _EventsState extends State<Events> {
                                         MaterialPageRoute(
                                             builder: (_) => PastEvent()));
                                   },
-                                  child: Text('View All'))
+                                  child: Text(
+                                    'View All',
+                                    style: TextStyle(
+                                        color: Theme.of(context).primaryColor),
+                                  ))
                             ],
                           ),
                         ),

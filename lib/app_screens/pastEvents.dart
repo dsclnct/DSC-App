@@ -13,9 +13,10 @@ class PastEvent extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: BackButton(
-          color: Colors.black87,
+          color: Theme.of(context).primaryColor,
         ),
-        title: Text('Past Events', style: TextStyle(color: Colors.black87)),
+        title: Text('Past Events',
+            style: TextStyle(color: Theme.of(context).primaryColor)),
         bottom: PreferredSize(
           preferredSize: Size(0, 0),
           child: kcoloredLine,

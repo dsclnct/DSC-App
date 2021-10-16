@@ -129,7 +129,7 @@ class _AboutEventState extends State<AboutEvent> {
                           : '   Details   ',
                   style: GoogleFonts.poppins(
                       fontSize: 45.sp,
-                      color: Colors.white,
+                      color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.w600),
                 ),
               ))
@@ -211,7 +211,7 @@ class _AboutEventState extends State<AboutEvent> {
                         heading,
                         style: GoogleFonts.poppins(
                             fontSize: 60.sp,
-                            color: Colors.black87,
+                            color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.w500),
                       ),
                       if (subHeading != null)
@@ -221,7 +221,7 @@ class _AboutEventState extends State<AboutEvent> {
                             '❁  $subHeading',
                             style: GoogleFonts.poppins(
                               fontSize: 47.sp,
-                              color: Colors.grey.shade800,
+                              color: Theme.of(context).primaryColor,
                             ),
                           ),
                         ),
@@ -249,7 +249,7 @@ class _AboutEventState extends State<AboutEvent> {
                                       '$date',
                                       style: GoogleFonts.poppins(
                                         fontSize: 50.sp,
-                                        color: Colors.black,
+                                        color: Theme.of(context).primaryColor,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
@@ -273,7 +273,7 @@ class _AboutEventState extends State<AboutEvent> {
                                       '$time',
                                       style: GoogleFonts.poppins(
                                         fontSize: 50.sp,
-                                        color: Colors.black,
+                                        color: Theme.of(context).primaryColor,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
@@ -299,7 +299,7 @@ class _AboutEventState extends State<AboutEvent> {
                                       '$venue',
                                       style: GoogleFonts.poppins(
                                         fontSize: 50.sp,
-                                        color: Colors.black,
+                                        color: Theme.of(context).primaryColor,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
@@ -319,7 +319,7 @@ class _AboutEventState extends State<AboutEvent> {
                                 'About',
                                 style: GoogleFonts.poppins(
                                     fontSize: 55.sp,
-                                    color: Colors.black87,
+                                    color: Theme.of(context).primaryColor,
                                     fontWeight: FontWeight.w500),
                               ),
                               SizedBox(
@@ -329,7 +329,7 @@ class _AboutEventState extends State<AboutEvent> {
                                 '$discription',
                                 style: GoogleFonts.poppins(
                                   fontSize: 45.sp,
-                                  color: Colors.grey.shade800,
+                                  color: Theme.of(context).primaryColor,
                                 ),
                               ),
                             ],

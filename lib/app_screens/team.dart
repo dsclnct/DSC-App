@@ -35,7 +35,7 @@ class OurTeam extends StatelessWidget {
                     'Our Team',
                     style: GoogleFonts.poppins(
                         fontSize: 85.sp,
-                        color: Colors.black87,
+                        color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.w600),
                   ),
                   Tab(
@@ -58,7 +58,7 @@ class OurTeam extends StatelessWidget {
                 teamText,
                 maxLines: 7,
                 style: GoogleFonts.poppins(
-                    fontSize: 50.sp, color: Colors.grey.shade800),
+                    fontSize: 50.sp, color: Theme.of(context).primaryColor),
               ),
             ),
           ],
