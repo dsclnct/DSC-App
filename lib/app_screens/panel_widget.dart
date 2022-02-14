@@ -2,7 +2,7 @@ import 'package:dashed_circle/dashed_circle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gdsc_lnct/models/coremembers.dart';
+import 'package:gdsc_lnct/models/core_members.dart';
 import 'package:gdsc_lnct/models/toast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -46,7 +46,7 @@ class PanelWidget extends StatelessWidget {
           ),
           SizedBox(height: 60.h),
           ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: 18,
               itemBuilder: (context, index) {
@@ -63,7 +63,7 @@ class PanelWidget extends StatelessWidget {
                         DashedCircle(
                           color: colour[index % 4],
                           child: Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: CircleAvatar(
                               backgroundColor: Colors.transparent,
                               radius: 120.sp,
@@ -111,7 +111,7 @@ class PanelWidget extends StatelessWidget {
                                                 ["linkedin"] ??
                                             '');
                                       },
-                                      padding: EdgeInsets.only(
+                                      padding: const EdgeInsets.only(
                                         right: 8,
                                       ),
                                       splashColor: Colors.red,
@@ -127,7 +127,7 @@ class PanelWidget extends StatelessWidget {
                                         _launchURL(
                                             coreMembers[index]["github"] ?? '');
                                       },
-                                      padding: EdgeInsets.only(
+                                      padding: const EdgeInsets.only(
                                         right: 8,
                                       ),
                                     ),
@@ -142,7 +142,7 @@ class PanelWidget extends StatelessWidget {
                                         _launchURL(
                                             coreMembers[index]["link"] ?? '');
                                       },
-                                      padding: EdgeInsets.only(
+                                      padding: const EdgeInsets.only(
                                         right: 8,
                                       ),
                                     ),
@@ -163,7 +163,8 @@ class PanelWidget extends StatelessWidget {
 }
 
 class MemberCard extends StatelessWidget {
-  MemberCard({required this.index, required this.selectedIndex});
+  const MemberCard({required this.index, required this.selectedIndex, Key? key})
+      : super(key: key);
   final int index;
   final int selectedIndex;
 

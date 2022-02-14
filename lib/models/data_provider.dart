@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 class DataProvider extends ChangeNotifier {
   final _firestore = FirebaseFirestore.instance;
@@ -32,7 +31,9 @@ class DataProvider extends ChangeNotifier {
         bannerInfo.add(b.data());
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       error = true;
     }
     notifyListeners();

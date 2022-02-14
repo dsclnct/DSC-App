@@ -1,14 +1,12 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gdsc_lnct/app_screens/navigator.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../constants.dart';
-import 'screen1.dart';
+import 'screen.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class IntroPage extends StatefulWidget {
+  const IntroPage({Key? key}) : super(key: key);
+
   @override
   _IntroPageState createState() => _IntroPageState();
 }
@@ -41,7 +39,7 @@ class _IntroPageState extends State<IntroPage> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 40),
+                padding: const EdgeInsets.only(bottom: 40),
                 child: CircularPercentIndicator(
                   radius: 100.0,
                   animation: true,
@@ -54,7 +52,7 @@ class _IntroPageState extends State<IntroPage> {
                       if (currentIndex < 2) {
                         setState(() {
                           controller.animateToPage(currentIndex + 1,
-                              duration: Duration(milliseconds: 200),
+                              duration: const Duration(milliseconds: 200),
                               curve: Curves.linear);
                         });
                       } else {
@@ -63,18 +61,18 @@ class _IntroPageState extends State<IntroPage> {
                         await preferences.setBool('showIntro', false);
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
-                              builder: (context) => HomePageNavigation(),
+                              builder: (context) => const HomePageNavigation(),
                             ),
                             (Route<dynamic> route) => false);
                       }
                     },
                     child: Container(
-                      margin: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.all(15),
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.black87,
                       ),
-                      child: Center(
+                      child: const Center(
                           child: Icon(
                         Icons.arrow_forward_rounded,
                         color: Colors.white,

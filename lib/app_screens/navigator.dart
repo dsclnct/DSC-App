@@ -1,14 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:gdsc_lnct/app_screens/about.dart';
-import 'package:gdsc_lnct/app_screens/pastEvents.dart';
+import 'package:gdsc_lnct/app_screens/past_events.dart';
 import 'package:gdsc_lnct/app_screens/team.dart';
-import 'package:gdsc_lnct/models/dataprovider.dart';
+import 'package:gdsc_lnct/models/data_provider.dart';
 import 'package:gdsc_lnct/models/notification_service.dart';
 import 'package:gdsc_lnct/models/toast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,19 +17,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../constants.dart';
-import 'upcomingevents.dart';
+import 'upcoming_events.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePageNavigation extends StatefulWidget {
+  const HomePageNavigation({Key? key}) : super(key: key);
+
   @override
   _HomePageNavigationState createState() => _HomePageNavigationState();
 }
 
 class _HomePageNavigationState extends State<HomePageNavigation> {
   List<Widget> screen = [
-    AboutUs(),
-    Events(),
-    OurTeam(),
+    const AboutUs(),
+    const Events(),
+    const OurTeam(),
   ];
 
   int _selectedIndex = 1;
@@ -86,7 +87,7 @@ class _HomePageNavigationState extends State<HomePageNavigation> {
         //activeColor: Colors.grey.shade100,
         backgroundColor: Colors.white,
         items: [
-          TabItem(
+          const TabItem(
               icon: TabIcon(
                 image: 'inactiveAbout',
               ),
@@ -102,7 +103,7 @@ class _HomePageNavigationState extends State<HomePageNavigation> {
                   )),
             ),
           ),
-          TabItem(
+          const TabItem(
               icon: TabIcon(
                 image: 'inactiveTeam',
               ),
@@ -152,7 +153,7 @@ class _EventsState extends State<Events> {
 
   Future<void> init() async {
     var data = Provider.of<DataProvider>(context, listen: false);
-    if (data.upcomingEvents.length == 0 && data.pastEvents.length == 0) {
+    if (data.upcomingEvents.isEmpty && data.pastEvents.isEmpty) {
       setState(() {
         showLoading = true;
       });
@@ -163,7 +164,7 @@ class _EventsState extends State<Events> {
     }
   }
 
-  RefreshController _refreshController =
+  final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
@@ -179,14 +180,14 @@ class _EventsState extends State<Events> {
   Widget build(BuildContext context) {
     var data = Provider.of<DataProvider>(context);
     return (showLoading)
-        ? Center(
+        ? const Center(
             child: CircularProgressIndicator(),
           )
         : SmartRefresher(
             enablePullDown: true,
             controller: _refreshController,
             onRefresh: _onRefresh,
-            header: ClassicHeader(),
+            header: const ClassicHeader(),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -239,7 +240,7 @@ class _EventsState extends State<Events> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (data.bannerInfo.length > 0) Banner(),
+                      if (data.bannerInfo.isNotEmpty) const Banner(),
                       Container(
                         margin: EdgeInsets.only(
                             top: 50.h, bottom: 20.h, left: 50.w),
@@ -251,7 +252,7 @@ class _EventsState extends State<Events> {
                               fontWeight: FontWeight.w600),
                         ),
                       ),
-                      (data.upcomingEvents.length > 0)
+                      (data.upcomingEvents.isNotEmpty)
                           ? ListEvents(
                               event: EventType.upcoming,
                             )
@@ -279,7 +280,7 @@ class _EventsState extends State<Events> {
                                     ],
                                   )),
                             ),
-                      if (data.pastEvents.length > 0)
+                      if (data.pastEvents.isNotEmpty)
                         Container(
                           margin: EdgeInsets.only(
                               top: 50.h, left: 50.w, right: 50.w),
@@ -298,13 +299,13 @@ class _EventsState extends State<Events> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (_) => PastEvent()));
+                                            builder: (_) => const PastEvent()));
                                   },
-                                  child: Text('View All'))
+                                  child: const Text('View All'))
                             ],
                           ),
                         ),
-                      if (data.pastEvents.length > 0)
+                      if (data.pastEvents.isNotEmpty)
                         ListEvents(
                           event: EventType.past,
                         ),
@@ -321,6 +322,8 @@ class _EventsState extends State<Events> {
 }
 
 class Banner extends StatelessWidget {
+  const Banner({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<DataProvider>(context);
@@ -358,7 +361,7 @@ List<Widget> bannerItems(DataProvider data) {
           elevation: 3,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             child: CachedNetworkImage(
               imageUrl: data.bannerInfo[i]['backgroundImage'] ??
@@ -375,23 +378,21 @@ List<Widget> bannerItems(DataProvider data) {
                 ),
                 child: BlurHash(
                   imageFit: BoxFit.cover,
-                  duration: Duration(seconds: 10),
+                  duration: const Duration(seconds: 10),
                   curve: Curves.linear,
                   hash: 'LHA-Vc_4s9ad4oMwt8t7RhXTNGRj',
                   image: url,
                 ),
               ),
-              errorWidget: (context, url, error) => Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.error,
-                      color: Colors.red.shade800,
-                    ),
-                    Text('Something went wrong!')
-                  ],
-                ),
+              errorWidget: (context, url, error) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error,
+                    color: Colors.red.shade800,
+                  ),
+                  const Text('Something went wrong!')
+                ],
               ),
             ),
           ),

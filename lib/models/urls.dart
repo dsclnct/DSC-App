@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:gdsc_lnct/models/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,22 +27,23 @@ class URL {
 
   void launchURL(Url name) async {
     String url;
-    if (name == Url.facebook)
+    if (name == Url.facebook) {
       url = facebook;
-    else if (name == Url.gdsc)
+    } else if (name == Url.gdsc) {
       url = gdsc;
-    else if (name == Url.linkedin)
+    } else if (name == Url.linkedin) {
       url = linkedin;
-    else if (name == Url.insta)
+    } else if (name == Url.insta) {
       url = insta;
-    else if (name == Url.twitter)
+    } else if (name == Url.twitter) {
       url = twitter;
-    else if (name == Url.discord)
+    } else if (name == Url.discord) {
       url = discord;
-    else if (name == Url.web)
+    } else if (name == Url.web) {
       url = web;
-    else
+    } else {
       url = youtube;
+    }
 
     await canLaunch(url)
         ? await launch(url)

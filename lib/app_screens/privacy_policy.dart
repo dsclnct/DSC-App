@@ -17,12 +17,12 @@ class PP extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        leading: BackButton(
+        leading: const BackButton(
           color: Colors.black87,
         ),
-        title: Text('Privacy Policy', style: TextStyle(color: Colors.black87)),
+        title: const Text('Privacy Policy', style: TextStyle(color: Colors.black87)),
         bottom: PreferredSize(
-          preferredSize: Size(0, 0),
+          preferredSize: const Size(0, 0),
           child: kcoloredLine,
         ),
       ),

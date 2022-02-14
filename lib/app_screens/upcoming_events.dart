@@ -3,8 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
-import 'package:gdsc_lnct/app_screens/aboutevent.dart';
-import 'package:gdsc_lnct/models/dataprovider.dart';
+import 'package:gdsc_lnct/app_screens/about_event.dart';
+import 'package:gdsc_lnct/models/data_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +20,7 @@ class ListEvents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<DataProvider>(context);
-    return Container(
+    return SizedBox(
       height: (event == EventType.past) ? 870.h : null,
       child: ListView.builder(
         shrinkWrap: true,
@@ -29,7 +29,7 @@ class ListEvents extends StatelessWidget {
                 ? Axis.vertical
                 : Axis.horizontal,
         physics: (event == EventType.upcoming)
-            ? NeverScrollableScrollPhysics()
+            ? const NeverScrollableScrollPhysics()
             : null,
         itemCount: (event == EventType.upcoming)
             ? data.upcomingEvents.length
@@ -68,113 +68,112 @@ class ListEvents extends StatelessWidget {
                       elevation: 3,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      child: Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CachedNetworkImage(
-                              imageUrl: imageURL ??
-                                  'https://media.istockphoto.com/vectors/error-page-dead-emoji-illustration-vector-id1095047472?k=20&m=1095047472&s=612x612&w=0&h=1lDW_CWDLYwOUO7tAsLHnXTSwuvcWqWq4rysM1y6-E8=',
-                              imageBuilder: (context, imageProvider) =>
-                                  Container(
-                                height: 500.sp,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10)),
-                                    image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: imageProvider)),
-                              ),
-                              placeholder: (context, url) => Container(
-                                height: 600.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: BlurHash(
-                                  imageFit: BoxFit.cover,
-                                  duration: Duration(seconds: 10),
-                                  curve: Curves.linear,
-                                  hash: 'LHA-Vc_4s9ad4oMwt8t7RhXTNGRj',
-                                  image: url,
-                                ),
-                              ),
-                              errorWidget: (context, url, error) => Center(
-                                  child: Container(
-                                      height: 300.sp,
-                                      child: Icon(
-                                        Icons.error,
-                                        color: Colors.red[900],
-                                      ))),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CachedNetworkImage(
+                            imageUrl: imageURL ??
+                                'https://media.istockphoto.com/vectors/error-page-dead-emoji-illustration-vector-id1095047472?k=20&m=1095047472&s=612x612&w=0&h=1lDW_CWDLYwOUO7tAsLHnXTSwuvcWqWq4rysM1y6-E8=',
+                            imageBuilder: (context, imageProvider) =>
+                                Container(
+                              height: 500.sp,
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10)),
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: imageProvider)),
                             ),
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                horizontal: 50.w,
-                                vertical: 30.h,
+                            placeholder: (context, url) => Container(
+                              height: 600.h,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    heading,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 55.sp,
-                                        color: Colors.black87,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: AutoSizeText(
-                                          '$date',
-                                          maxLines: 1,
-                                          minFontSize: 42.sp,
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 49.sp,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.blueAccent),
-                                        ),
+                              child: BlurHash(
+                                imageFit: BoxFit.cover,
+                                duration: const Duration(seconds: 10),
+                                curve: Curves.linear,
+                                hash: 'LHA-Vc_4s9ad4oMwt8t7RhXTNGRj',
+                                image: url,
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Center(
+                                child: SizedBox(
+                                    height: 300.sp,
+                                    child: Icon(
+                                      Icons.error,
+                                      color: Colors.red[900],
+                                    ))),
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                              horizontal: 50.w,
+                              vertical: 30.h,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  heading,
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 55.sp,
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: AutoSizeText(
+                                        date,
+                                        maxLines: 1,
+                                        minFontSize: 42.sp,
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 49.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.blueAccent),
                                       ),
-                                      if (rsvpLink != null || watchLink != null)
-                                        ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20)),
-                                              primary: Colors.blueAccent),
-                                          onPressed: () async {
-                                            String? url;
-                                            if (watchLink != null)
-                                              url = watchLink;
-                                            else
-                                              url = rsvpLink;
+                                    ),
+                                    if (rsvpLink != null || watchLink != null)
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        20)),
+                                            primary: Colors.blueAccent),
+                                        onPressed: () async {
+                                          String? url;
+                                          if (watchLink != null) {
+                                            url = watchLink;
+                                          } else {
+                                            url = rsvpLink;
+                                          }
 
-                                            await canLaunch(url ?? '')
-                                                ? await launch(url ?? '')
-                                                : throw 'Could not launch';
-                                          },
-                                          child: Text(
-                                            (event == EventType.upcoming)
-                                                ? '   RSVP Now   '
-                                                : (watchLink != null)
-                                                    ? '   Watch   '
-                                                    : '   Details   ',
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 45.sp,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                        )
-                                    ],
-                                  )
-                                ],
-                              ),
+                                          await canLaunch(url ?? '')
+                                              ? await launch(url ?? '')
+                                              : throw 'Could not launch';
+                                        },
+                                        child: Text(
+                                          (event == EventType.upcoming)
+                                              ? '   RSVP Now   '
+                                              : (watchLink != null)
+                                                  ? '   Watch   '
+                                                  : '   Details   ',
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 45.sp,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      )
+                                  ],
+                                )
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ))
                   : pastEvents(
                       imageURL: imageURL,
@@ -204,7 +203,7 @@ Widget pastEvents(
         margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.h),
         elevation: 3,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Container(
+        child: SizedBox(
           width: 600.w,
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -233,14 +232,14 @@ Widget pastEvents(
                   ),
                   child: BlurHash(
                     imageFit: BoxFit.cover,
-                    duration: Duration(seconds: 10),
+                    duration: const Duration(seconds: 10),
                     curve: Curves.linear,
                     hash: 'LHA-Vc_4s9ad4oMwt8t7RhXTNGRj',
                     image: url,
                   ),
                 ),
                 errorWidget: (context, url, error) => Center(
-                    child: Container(
+                    child: SizedBox(
                         height: 400.sp,
                         child: Icon(
                           Icons.error,
@@ -273,7 +272,7 @@ Widget pastEvents(
                     Expanded(
                       flex: 1,
                       child: AutoSizeText(
-                        '$date',
+                        date,
                         maxLines: 1,
                         minFontSize: 42.sp,
                         style: GoogleFonts.poppins(
